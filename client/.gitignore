@@ -1,2 +1,5 @@
 node-modules
-client/node-modules/.cache
+client/node_modules/.cache
+client\node_modules\.cache
+client/node_modules/
+client\node_modules
