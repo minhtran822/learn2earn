@@ -16,6 +16,7 @@ const index = (req, res) => {
         })
     })
 }
+
 // Show
 const show = async (req, res) => {
     // req.params.id => req.userId
@@ -56,6 +57,7 @@ const create = async (req, res) => {
         })
     }
 };
+
 //Update
 const update = async (req, res) => {
 
@@ -97,11 +99,48 @@ const destroy = (req, res) => {
     })
 }
 
+//Add Feedback by the current user
+//Have not checked if this worked yet, Have not attached the method to a route and API.
+//TODO: Check how to add current user: possibly include current user's id along with the request
+//TODO: Do we need to attach user's ID with every feedback? Is there a better way?
+const addFeedback = async(req, res) => {
+    try {
+        const feedback = new db.Feedback(req.body);
+        const createdFeedback = await feedback.save();
+        return res.status(200).json({
+            message: "Feedback added",
+            data: createdFeedback
+        })
+    } catch(err){
+        return res.status(400).json({
+            message: "Failure to add Feedback",
+            error: err
+        })
+    }
+}
+
+const getFeedback = async(req, res) => {
+    try{
+        const foundFeedback = await db.Feedback.findOne({userID}).populate()
+        return res.status(200).json({
+            message: "Sucess",
+            data: foundFeedback
+        })
+    } catch(err){
+        return res.status(500).json({
+            status: 500,
+            message: "Internal Server Error"
+        })
+    }
+}
+
 
 module.exports = {
     index,
     show,
     create,
     update,
-    destroy
+    destroy,
+    addFeedback,
+    getFeedback
 }
