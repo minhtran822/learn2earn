@@ -9,4 +9,7 @@ router.get("/:id", users.show);
 router.put("/:id", users.update);
 router.delete("/:id", users.destroy);
 
+router.get("/feedback/:id", users.getFeedback);
+router.put("/feedback/:id/add", users.addFeedback);
+
 module.exports = router;

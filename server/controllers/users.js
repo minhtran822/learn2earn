@@ -99,6 +99,8 @@ const destroy = (req, res) => {
     })
 }
 
+//Do we need to make this into a separate controller?
+
 //Add Feedback by the current user
 //Have not checked if this worked yet, Have not attached the method to a route and API.
 //TODO: Check how to add current user: possibly include current user's id along with the request
@@ -107,6 +109,7 @@ const addFeedback = async(req, res) => {
     try {
         //Do we need to validate the userID before creation?
         const feedback = new db.Feedback(req.body);
+        feedback.userID = req.params.id;
         const createdFeedback = await feedback.save();
         return res.status(200).json({
             message: "Feedback added",
@@ -123,7 +126,7 @@ const addFeedback = async(req, res) => {
 //Retrieve Feedback by the req userID
 const getFeedback = async(req, res) => {
     try{
-        const foundFeedback = await db.Feedback.findOne({userID}).populate()
+        const foundFeedback = await db.Feedback.findOne({userID : req.params.id}).populate()
         return res.status(200).json({
             message: "Sucess",
             data: foundFeedback
