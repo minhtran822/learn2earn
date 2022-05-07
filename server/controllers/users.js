@@ -105,6 +105,7 @@ const destroy = (req, res) => {
 //TODO: Do we need to attach user's ID with every feedback? Is there a better way?
 const addFeedback = async(req, res) => {
     try {
+        //Do we need to validate the userID before creation?
         const feedback = new db.Feedback(req.body);
         const createdFeedback = await feedback.save();
         return res.status(200).json({
@@ -119,6 +120,7 @@ const addFeedback = async(req, res) => {
     }
 }
 
+//Retrieve Feedback by the req userID
 const getFeedback = async(req, res) => {
     try{
         const foundFeedback = await db.Feedback.findOne({userID}).populate()
