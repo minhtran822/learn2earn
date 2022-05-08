@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const {users} = require("../controllers");
-const authRequired = require("../middleware/auth.required");
+const { feedback } = require("../controllers")
 
-router.get("/:id", users.getFeedback);
-router.post("/add/:id", users.addFeedback);
+router.get("/", feedback.index);
+router.get("/:id", feedback.getByID);
+router.post("/add/:id", feedback.create);
 
 module.exports = router;
