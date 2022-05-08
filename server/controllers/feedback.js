@@ -54,8 +54,24 @@ const getByID = async(req, res) => {
     }
 }
 
+const destroy = async(req, res) =>{
+    db.Feedback.findByIdAndDelete(req.params.idFeedback, (err, deletedFeedback) => {
+        if (err)
+            return res.status(400).json({
+                message: "Failure to delete",
+                error: err
+            })
+
+        return res.status(200).json({
+            message: "Delete succesful",
+            data: deletedFeedback
+        })
+    })
+}
+
 module.exports = {
     index,
     create,
-    getByID
+    getByID,
+    destroy
 }
