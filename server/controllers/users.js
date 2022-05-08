@@ -126,7 +126,7 @@ const addFeedback = async(req, res) => {
 //Retrieve Feedback by the req userID
 const getFeedback = async(req, res) => {
     try{
-        const foundFeedback = await db.Feedback.findOne({userID : req.params.id}).populate()
+        const foundFeedback = await db.Feedback.find({userID : req.params.id}).populate()
         return res.status(200).json({
             message: "Sucess",
             data: foundFeedback
